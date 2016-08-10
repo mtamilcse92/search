@@ -116,22 +116,22 @@ module.exports = {
             if (locationA[0] <= 2 && locationB[0] <= 3) {
                 sortValue.push(_.first(foundA));
                 if (_.last(locationB) <= 3 && _.last(locationC) <= 3) {
-                  console.log("first");
+                    console.log("first");
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
                     sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
                 } else if (locationA.includes(2) || locationA.includes(3)) {
-                  console.log("second");
-                    sortValue.push((_.sortBy(_.flatten(BC), 'location')));
+                    console.log("second");
                     last.push(_.without(foundA, _.first(foundA)));
                     sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
                 } else {
-                  console.log("third");
+                    console.log("third");
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     last.push(_.without(foundA, _.first(foundA)));
                     sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
@@ -141,19 +141,35 @@ module.exports = {
                 }
 
             } else if (locationB.includes(2) || locationC.includes(3)) {
-              console.log("fourth");
+                console.log("fourth");
                 sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
-                sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
-                sortValue.push((_.sortBy(_.flatten(DE), 'location')));
-                console.log(_.flatten(sortValue));
-                final.push(_.flatten(sortValue));
-            } else {
-              console.log("fifth");
+
+                if (_.last(locationB) <=3 || _.last(locationC) <=3 ) {
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')));
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    final.push(_.flatten(sortValue));
+                } else {
+                    // sortValue.push((_.sortBy(_.flatten(foundA), 'location')).reverse());
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    console.log(_.flatten(sortValue));
+                    final.push(_.flatten(sortValue));
+                }
+
+            } else if (locationA.includes(3) || locationA.includes(4) || locationA.includes(5)) {
+                console.log("fifth");
                 sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
-                sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
-                sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
-                console.log(_.flatten(sortValue));
-                final.push(_.flatten(sortValue));
+                if (locationB.includes(2) || locationC.includes(2)) {
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    final.push(_.flatten(sortValue));
+                } else {
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
+                    console.log(_.flatten(sortValue));
+                    final.push(_.flatten(sortValue));
+                }
+
             }
             collection = _.concat(foundA, foundB, foundC, foundD);
             res.json({ value: final });
