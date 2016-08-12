@@ -30,17 +30,29 @@ module.exports = {
     show: function(req, res) {
         var name = req.param('name');
         console.log(name);
-        var collection, foundA = [],
+        var collection,
+            foundA = [],
             foundB = [],
             foundC = [],
             foundD = [],
             foundE = [],
+            foundF = [],
+            foundG = [],
+            foundH = [],
+            foundI = [],
+            foundJ = [],
             final = [],
             locationA = [],
             locationB = [],
             locationC = [],
             locationD = [],
-            locationE = [];
+            locationE = [],
+            locationF = [],
+            locationG = [],
+            locationH = [],
+            locationI = [],
+            locationJ = [];
+        locationF = [];
         Data.findOne(1, function(err, found) {
             if (err) {
                 return res.send(err, 500);
@@ -57,7 +69,7 @@ module.exports = {
                 );
             });
             _.forEach(name, function(value) {
-                console.log(value);
+                // console.log(value);
                 results = _.map(
                     _.filter(found.sectionB, { "name": value }),
                     function(val) {
@@ -68,7 +80,7 @@ module.exports = {
                 );
             });
             _.forEach(name, function(value) {
-                console.log(value);
+                // console.log(value);
                 results = _.map(
                     _.filter(found.sectionC, { "name": value }),
                     function(val) {
@@ -79,7 +91,7 @@ module.exports = {
                 );
             });
             _.forEach(name, function(value) {
-                console.log(value);
+                // console.log(value);
                 results = _.map(
                     _.filter(found.sectionD, { "name": value }),
                     function(val) {
@@ -90,7 +102,7 @@ module.exports = {
                 );
             });
             _.forEach(name, function(value) {
-                console.log(value);
+                // console.log(value);
                 results = _.map(
                     _.filter(found.sectionE, { "name": value }),
                     function(val) {
@@ -100,11 +112,66 @@ module.exports = {
                     }
                 );
             });
+            _.forEach(name, function(value) {
+                // console.log(value);
+                results = _.map(
+                    _.filter(found.sectionF, { "name": value }),
+                    function(val) {
+                        foundF.push(val);
+                        locationF.push(val.location);
+                    }
+                );
+            });
+            _.forEach(name, function(value) {
+                // console.log(value);
+                results = _.map(
+                    _.filter(found.sectionG, { "name": value }),
+                    function(val) {
+                        foundG.push(val);
+                        locationG.push(val.location);
+                    }
+                );
+            });
+            _.forEach(name, function(value) {
+                // console.log(value);
+                results = _.map(
+                    _.filter(found.sectionH, { "name": value }),
+                    function(val) {
+                        foundH.push(val);
+                        locationH.push(val.location);
+                    }
+                );
+            });
+            _.forEach(name, function(value) {
+                // console.log(value);
+                results = _.map(
+                    _.filter(found.sectionI, { "name": value }),
+                    function(val) {
+                        foundI.push(val);
+                        locationI.push(val.location);
+                    }
+                );
+            });
+             _.forEach(name, function(value) {
+                // console.log(value);
+                results = _.map(
+                    _.filter(found.sectionJ, { "name": value }),
+                    function(val) {
+                        foundJ.push(val);
+                        locationJ.push(val.location);
+                    }
+                );
+            });
             locationA.sort();
             locationB.sort();
             locationC.sort();
             locationD.sort();
             locationE.sort();
+            locationF.sort();
+            locationG.sort();
+            locationH.sort();
+            locationI.sort();
+            locationJ.sort();
             var sortValue = [];
             var BC = [];
             var DE = [];
@@ -113,21 +180,70 @@ module.exports = {
             DE.push(foundD);
             DE.push(foundE);
             var last = [];
-            if (locationA[0] <= 2 && locationB[0] <= 3) {
-                sortValue.push(_.first(foundA));
-                if (_.last(locationB) <= 3 && _.last(locationC) <= 3) {
+
+
+
+
+
+            if (locationA[0] <= 2 || locationB[0] <= 3) {
+
+                // sortValue.push(_.first(foundA));
+                if (_.last(locationB) <= 3 || _.last(locationC) <= 3) {
                     console.log("first");
+
+                    if (locationA[0] <= 2) {
+                        var vall = [1, 2];
+                        _.forEach(vall, function(value) {
+                            console.log(value);
+                            results = _.map(
+                                _.filter(foundA, { "location": value }),
+                                function(val) {
+                                    sortValue.push(val);
+                                    console.log("val" + val);
+                                }
+                            );
+                        });
+
+                    }
+                    var loc = [1, 2];
+                    var copy = foundA;
+                    var balance = [];
+                    _.forEach(loc, function(value) {
+                        console.log(value);
+                        balance.push(_.pull(copy, _.find(foundA, { "location": value })));
+                    });
+                    console.log(balance);
+                    // last.push(_.without(foundA, _.first(foundA)));
+                    last.push(_.flatten(_.uniqBy(balance, 'location')));
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
                     sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
-                } else if (locationA.includes(2) || locationA.includes(3)) {
+                } else if (locationA.includes(3) || locationA.includes(4)) {
                     console.log("second");
-                    last.push(_.without(foundA, _.first(foundA)));
-                    sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
-                    sortValue.push((_.sortBy(_.flatten(BC), 'location')));
-                    sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    // last.push(_.without(foundA, _.first(foundA)));
+
+                    if (locationB.includes(2) || locationC.includes(3)) {
+                        sortValue.push((_.sortBy(_.flatten(BC), 'location')));
+                        sortValue.push((_.sortBy(_.flatten(foundA), 'location')).reverse());
+                        sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
+                        if (locationD.includes(3) || locationE.includes(3)) {
+                            sortValue.push((_.sortBy(_.flatten(foundF), 'location')).reverse());
+                        } else {
+                            sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
+                        }
+                    } else {
+                        sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
+                        sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
+                        sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                        if (locationD.includes(3) || locationE.includes(3)) {
+                            sortValue.push((_.sortBy(_.flatten(foundF), 'location')).reverse());
+                        } else {
+                            sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
+                        }
+                    }
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
                 } else {
@@ -144,7 +260,7 @@ module.exports = {
                 console.log("fourth");
                 sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
 
-                if (_.last(locationB) <=3 || _.last(locationC) <=3 ) {
+                if (_.last(locationB) <= 3 || _.last(locationC) <= 3) {
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
                     final.push(_.flatten(sortValue));
@@ -155,6 +271,23 @@ module.exports = {
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
                 }
+
+            } else if (foundA.length === 0) {
+
+                if (foundB.length === 0) {
+
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')));
+                    sortValue.push((_.sortBy(_.flatten(foundF), 'location')).reverse());
+                    console.log(_.flatten(sortValue));
+                    final.push(_.flatten(sortValue));
+
+                } else {
+                    sortValue.push((_.sortBy(_.flatten(BC), 'location')));
+                    sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
+                    console.log(_.flatten(sortValue));
+                    final.push(_.flatten(sortValue));
+                }
+
 
             } else if (locationA.includes(3) || locationA.includes(4) || locationA.includes(5)) {
                 console.log("fifth");

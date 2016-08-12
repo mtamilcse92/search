@@ -17,7 +17,17 @@ module.exports = {
 
     sectionD : { type: 'array' },
 
-    sectionE : { type: 'array' }
+    sectionE : { type: 'array' },
+
+    sectionF : { type: 'array' },
+
+    sectionG : { type: 'array' },
+
+    sectionH : { type: 'array' },
+
+    sectionI : { type: 'array' },
+
+    sectionJ : { type: 'array' }
   }
 };
 
