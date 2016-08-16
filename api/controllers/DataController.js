@@ -152,7 +152,7 @@ module.exports = {
                     }
                 );
             });
-             _.forEach(name, function(value) {
+            _.forEach(name, function(value) {
                 // console.log(value);
                 results = _.map(
                     _.filter(found.sectionJ, { "name": value }),
@@ -175,14 +175,12 @@ module.exports = {
             var sortValue = [];
             var BC = [];
             var DE = [];
+            var HI = [];
             BC.push(foundB);
             BC.push(foundC);
             DE.push(foundD);
             DE.push(foundE);
             var last = [];
-
-
-
 
 
             if (locationA[0] <= 2 || locationB[0] <= 3) {
@@ -216,8 +214,33 @@ module.exports = {
                     // last.push(_.without(foundA, _.first(foundA)));
                     last.push(_.flatten(_.uniqBy(balance, 'location')));
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
+                    
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
-                    sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
+                    if (_.last(locationB) <= 3 || _.last(locationC) <= 3){
+                      sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
+
+
+
+                    if (_.last(locationG) >= 3) {
+                          console.log("first coming");
+                          var valG = [3, 4, 5];
+                        _.forEach(valG, function(value) {
+                            console.log(value);
+                            results = _.map(
+                                _.filter(foundG, { "location": value }),
+                                function(val) {
+                                    sortValue.push(val);
+                                    console.log("val" + val);
+                                }
+                            );
+                        });
+
+                        }else if (_.last(locationH) >= 3 || _.last(locationI) >=3) {
+
+                        }
+
+                    }
+                    
                     sortValue.push((_.sortBy(_.flatten(last), 'location')).reverse());
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
@@ -236,6 +259,21 @@ module.exports = {
                         }
                     } else {
                         sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
+                        if (locationG[0] <= 2) {
+                          console.log("coming");
+                          var valG = [1, 2];
+                        _.forEach(valG, function(value) {
+                            console.log(value);
+                            results = _.map(
+                                _.filter(foundG, { "location": value }),
+                                function(val) {
+                                    sortValue.push(val);
+                                    console.log("val" + val);
+                                }
+                            );
+                        });
+
+                        }
                         sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
                         sortValue.push((_.sortBy(_.flatten(DE), 'location')));
                         if (locationD.includes(3) || locationE.includes(3)) {
@@ -256,7 +294,12 @@ module.exports = {
                     final.push(_.flatten(sortValue));
                 }
 
-            } else if (locationB.includes(2) || locationC.includes(3)) {
+            }
+
+
+
+
+             else if (locationB.includes(2) || locationC.includes(3)) {
                 console.log("fourth");
                 sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
 
@@ -273,7 +316,7 @@ module.exports = {
                 }
 
             } else if (foundA.length === 0) {
-
+                console.log("null");
                 if (foundB.length === 0) {
 
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
@@ -284,6 +327,11 @@ module.exports = {
                 } else {
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')));
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
+                    if (locationD.includes(3) || locationE.includes(3)) {
+                        sortValue.push((_.sortBy(_.flatten(foundF), 'location')).reverse());
+                    } else {
+                        sortValue.push((_.sortBy(_.flatten(foundF), 'location')));
+                    }
                     console.log(_.flatten(sortValue));
                     final.push(_.flatten(sortValue));
                 }
@@ -293,10 +341,40 @@ module.exports = {
                 console.log("fifth");
                 sortValue.push((_.sortBy(_.flatten(foundA), 'location')));
                 if (locationB.includes(2) || locationC.includes(2)) {
+                  if (locationG[0] <= 2) {
+                          console.log("coming");
+                          var valG = [1, 2];
+                        _.forEach(valG, function(value) {
+                            console.log(value);
+                            results = _.map(
+                                _.filter(foundG, { "location": value }),
+                                function(val) {
+                                    sortValue.push(val);
+                                    console.log("val" + val);
+                                }
+                            );
+                        });
+
+                        }
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')));
                     final.push(_.flatten(sortValue));
                 } else {
+                  if (locationG[0] <= 2) {
+                          console.log("coming");
+                          var valG = [1, 2];
+                        _.forEach(valG, function(value) {
+                            console.log(value);
+                            results = _.map(
+                                _.filter(foundG, { "location": value }),
+                                function(val) {
+                                    sortValue.push(val);
+                                    console.log("val" + val);
+                                }
+                            );
+                        });
+
+                        }
                     sortValue.push((_.sortBy(_.flatten(BC), 'location')).reverse());
                     sortValue.push((_.sortBy(_.flatten(DE), 'location')).reverse());
                     console.log(_.flatten(sortValue));
